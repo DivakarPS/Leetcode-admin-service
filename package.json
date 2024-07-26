@@ -4,8 +4,13 @@
   "description": "This is a admin service to manage problems of Leetcode Like platform",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
