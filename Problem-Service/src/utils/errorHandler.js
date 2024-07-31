@@ -1,6 +1,7 @@
 const BaseError = require("../errors/base.error");
-const { statusCode } = require('http-status-codes');
+const { statusCode, StatusCodes } = require('http-status-codes');
 
+//4 parameters are required for error handling middleware, otherwise it will be considered as a normal middleware
 function errorHandler(err, req, res, next) {
   if( err instanceof BaseError){
     return res.status(err.statusCode).json({
@@ -11,7 +12,7 @@ function errorHandler(err, req, res, next) {
     });
   }
 
-  return res.status(err.statusCode).json({
+  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
     success: false,
     message: "Something went wrong !!",
     error: err,
