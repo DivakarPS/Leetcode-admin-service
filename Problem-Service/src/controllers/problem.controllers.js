@@ -3,6 +3,7 @@ const { ProblemService } = require('../services');
 const { ProblemRepository } = require('../repositories');
 
 const problemService = new ProblemService(new ProblemRepository());
+
 function pingController(req, res) {
   res.status(StatusCodes.ACCEPTED).json({ msg: "ping for problem controller is up!" });
 }
@@ -21,21 +22,55 @@ async function addProblem(req, res, next) {
     next(error);
   }
 }
-
-function getProblem(req, res) {
-  return res.json({ msg: "getProblem is up!" });
+async function getProblem(req, res, next) {
+  try {
+      const problem = await problemService.getProblem(req.params.id);
+      return res.status(StatusCodes.OK).json({
+          success: true,
+          error: {},
+          message: 'Successfully fetched a problem',
+          data: problem
+      })
+  } catch(error) {
+      next(error);
+  }
 }
 
-function getProblems(req, res) {
-  return res.json({ msg: "getProblems is up!" });
+async function getProblems(req, res, next) {
+  try {
+      const response = await problemService.getAllProblems();
+      return res.status(StatusCodes.OK).json({
+          success: true,
+          message: 'Successfully fetched all the problems',
+          error: {},
+          data: response
+      });
+  } catch(error) {
+      next(error);
+  }
 }
 
-function deleteProblem(req, res) {
-  return res.json({ msg: "deleteProblem is up!" });
+async function deleteProblem(req, res, next) {
+  try {
+      const deletedProblem = await problemService.deleteProblem(req.params.id);
+      return res.status(StatusCodes.OK).json({
+          success: true,
+          message: 'Successfully deleted the problem',
+          error: {},
+          data: deletedProblem
+      });
+  } catch(error) {
+      next(error);
+  }
 }
 
-function updateProblem(req, res) {
-  return res.json({ msg: "updateProblem is up!" });
+function updateProblem(req, res, next) {
+  try {
+      // nothing implemented
+      throw new NotImplemented('Add Problem');
+  } catch(error) {
+      next(error);
+  }
 }
 
 module.exports = {
@@ -44,5 +79,5 @@ module.exports = {
   getProblems,
   deleteProblem,
   updateProblem,
-  pingController,
-};
+  pingController
+}
