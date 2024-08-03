@@ -28,6 +28,22 @@ const problemSchema = new Schema({
             }
         }
     ],
+    codeStubs: [
+        {
+            language: {
+                type: String,
+                
+            },
+            startSnippet: {
+                type: String,
+                
+            },
+            endSnippet: {
+                type: String,
+                
+            }
+        }
+    ],
     editorial: {
         type: String
     }
